@@ -1,16 +1,16 @@
 package me.markkanen.tarmo.main;
 
+import me.markkanen.tarmo.gamestates.GameStateManager;
 import me.markkanen.tarmo.input.KeyManager;
 
 public class Game {
-	
-	private static Game game;
 	
 	private String title;
 	private int width;
 	private int height;
 	private Display display;
 	private KeyManager keyManager;
+	private GameStateManager gameStateManager;
 	private Gameloop gameloop;
 	
 	public Game(String title, int width, int height) {
@@ -20,17 +20,13 @@ public class Game {
 		display = new Display(title, width, height);
 		keyManager = new KeyManager();
 		display.getFrame().addKeyListener(keyManager);
-		gameloop = new Gameloop();
+		gameStateManager = new GameStateManager();
+		gameloop = new Gameloop(this);
 		gameloop.start();
 	}
 	
 	public static void main(String[] args) {
-		Game newGame = new Game("2DEngine", 1500, 1500 / 16 * 9);
-		game = newGame;
-	}
-	
-	public static Game getGame() {
-		return game;
+		new Game("2DEngine", 1500, 1500 / 16 * 9);
 	}
 	
 	public String getTitle() {
@@ -51,6 +47,10 @@ public class Game {
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public GameStateManager getGameStateManager() {
+		return gameStateManager;
 	}
 	
 	public Gameloop getGameloop() {

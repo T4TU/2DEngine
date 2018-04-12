@@ -4,14 +4,18 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
 
-import me.markkanen.tarmo.gamestates.GameState;
 import me.markkanen.tarmo.gamestates.TestState;
 import me.markkanen.tarmo.images.ImageContainer;
 
 public class Gameloop implements Runnable {
 	
+	private Game game;
 	private Thread thread;
 	private BufferStrategy bs;
+	
+	public Gameloop(Game game) {
+		this.game = game;
+	}
 	
 	public void run() {
 		
@@ -43,21 +47,22 @@ public class Gameloop implements Runnable {
 	
 	private void init() {
 		ImageContainer.loadImages();
-		TestState testState = new TestState("test_state");
-		GameState.setActiveState(testState);
+		TestState testState = new TestState(game, "test_state");
+		game.getGameStateManager().addGameState(testState);
+		game.getGameStateManager().setActiveState(testState);
 	}
 	
 	private void tick() {
-		GameState.getActiveState().tick();
-		Game.getGame().getKeyManager().clearPressed();
+		game.getGameStateManager().getActiveState().tick();
+		game.getKeyManager().clearPressed();
 	}
 	
 	private void render() {
 		
-		bs = Game.getGame().getDisplay().getCanvas().getBufferStrategy();
+		bs = game.getDisplay().getCanvas().getBufferStrategy();
 		
 		if (bs == null) {
-			Game.getGame().getDisplay().getCanvas().createBufferStrategy(2);
+			game.getDisplay().getCanvas().createBufferStrategy(2);
 			return;
 		}
 		
@@ -66,11 +71,11 @@ public class Gameloop implements Runnable {
 		RenderingHints hints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHints(hints);
 		
-		g.clearRect(0, 0, Game.getGame().getWidth(), Game.getGame().getHeight());
+		g.clearRect(0, 0, game.getWidth(), game.getHeight());
 		
 		//
 		
-		GameState.getActiveState().render(g);
+		game.getGameStateManager().getActiveState().render(g);
 		
 		//
 		

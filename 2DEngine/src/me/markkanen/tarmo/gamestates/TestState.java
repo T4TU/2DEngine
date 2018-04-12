@@ -3,14 +3,18 @@ package me.markkanen.tarmo.gamestates;
 import java.awt.Graphics2D;
 
 import me.markkanen.tarmo.environment.World;
+import me.markkanen.tarmo.gameobjects.TestObject;
+import me.markkanen.tarmo.main.Game;
 
 public class TestState extends GameState {
 	
 	private World world;
 	
-	public TestState(String name) {
-		super(name);
+	public TestState(Game game, String name) {
+		super(game, name);
 		world = new World();
+		TestObject testObject = new TestObject(game, 0, 0);
+		world.addGameObject(testObject);
 	}
 
 	@Override
