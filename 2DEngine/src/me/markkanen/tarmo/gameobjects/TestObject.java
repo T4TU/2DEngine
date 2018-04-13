@@ -2,8 +2,7 @@ package me.markkanen.tarmo.gameobjects;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-
-import com.sun.glass.events.KeyEvent;
+import java.awt.event.KeyEvent;
 
 import me.markkanen.tarmo.main.Game;
 
