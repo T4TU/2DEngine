@@ -5,14 +5,14 @@ import java.awt.event.KeyListener;
 
 public class KeyManager implements KeyListener {
 	
-	private boolean[] isPressed;
-	private boolean[] wasPressed;
+	private boolean[] isPressed, wasPressed;
 	
 	public KeyManager() {
 		isPressed = new boolean[256];
 		wasPressed = new boolean[256];
 	}
 	
+	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() >= 256)
 			return;
@@ -20,12 +20,14 @@ public class KeyManager implements KeyListener {
 		wasPressed[e.getKeyCode()] = true;
 	}
 	
+	@Override
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() >= 256)
 			return;
 		isPressed[e.getKeyCode()] = false;
 	}
 	
+	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 	

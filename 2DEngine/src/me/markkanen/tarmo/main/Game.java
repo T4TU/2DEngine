@@ -2,6 +2,7 @@ package me.markkanen.tarmo.main;
 
 import me.markkanen.tarmo.gamestates.GameStateManager;
 import me.markkanen.tarmo.input.KeyManager;
+import me.markkanen.tarmo.input.MouseManager;
 
 public class Game {
 	
@@ -10,6 +11,7 @@ public class Game {
 	private int height;
 	private Display display;
 	private KeyManager keyManager;
+	private MouseManager mouseManager;
 	private GameStateManager gameStateManager;
 	private Gameloop gameloop;
 	
@@ -20,6 +22,12 @@ public class Game {
 		display = new Display(title, width, height);
 		keyManager = new KeyManager();
 		display.getFrame().addKeyListener(keyManager);
+		display.getCanvas().addKeyListener(keyManager);
+		mouseManager = new MouseManager();
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);
+		display.getCanvas().addMouseMotionListener(mouseManager);
 		gameStateManager = new GameStateManager();
 		gameloop = new Gameloop(this);
 		gameloop.start();
@@ -47,6 +55,10 @@ public class Game {
 	
 	public KeyManager getKeyManager() {
 		return keyManager;
+	}
+	
+	public MouseManager getMouseManager() {
+		return mouseManager;
 	}
 	
 	public GameStateManager getGameStateManager() {

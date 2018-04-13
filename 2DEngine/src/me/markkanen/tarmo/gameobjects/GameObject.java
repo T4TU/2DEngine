@@ -8,13 +8,21 @@ public abstract class GameObject {
 	
 	protected Game game;
 	protected String id;
-	protected float x;
-	protected float y;
+	protected float x, y, z;
 	
 	public GameObject(Game game, float x, float y) {
 		this.game = game;
 		this.x = x;
 		this.y = y;
+		z = 0;
+		id = null;
+	}
+	
+	public GameObject(Game game, float x, float y, float z) {
+		this.game = game;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		id = null;
 	}
 	
@@ -22,6 +30,15 @@ public abstract class GameObject {
 		this.game = game;
 		this.x = x;
 		this.y = y;
+		z = 0;
+		this.id = id;
+	}
+	
+	public GameObject(Game game, String id, float x, float y, float z) {
+		this.game = game;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 		this.id = id;
 	}
 	
@@ -39,5 +56,9 @@ public abstract class GameObject {
 	
 	public float getY() {
 		return y;
+	}
+	
+	public float getZ() {
+		return z;
 	}
 }

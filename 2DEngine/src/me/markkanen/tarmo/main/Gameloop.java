@@ -55,6 +55,7 @@ public class Gameloop implements Runnable {
 	private void tick() {
 		game.getGameStateManager().getActiveState().tick();
 		game.getKeyManager().clearPressed();
+		game.getMouseManager().clearClicked();
 	}
 	
 	private void render() {
