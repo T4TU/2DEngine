@@ -13,7 +13,7 @@ public class TestState extends GameState {
 	public TestState(Game game, String name) {
 		super(game, name);
 		world = new World(false);
-		TestObject testObject = new TestObject(game, 100, 100, 100);
+		TestObject testObject = new TestObject(game, 200, 300);
 		world.addGameObject(testObject);
 	}
 

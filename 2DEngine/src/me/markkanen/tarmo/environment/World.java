@@ -35,6 +35,7 @@ public class World {
 	
 	public void tick() {
 		for (GameObject gameObject : gameObjects) {
+			gameObject.tickComponents();
 			gameObject.tick();
 		}
 	}
@@ -42,6 +43,7 @@ public class World {
 	public void render(Graphics2D g) {
 		gameObjects.sort(sorter);
 		for (GameObject gameObject : gameObjects) {
+			gameObject.renderComponents(g);
 			gameObject.render(g);
 		}
 	}
