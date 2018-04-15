@@ -6,13 +6,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import me.markkanen.tarmo.gameobjects.GameObject;
+import me.markkanen.tarmo.gamestates.GameState;
 
 public class World {
 	
+	private GameState gameState;
 	private List<GameObject> gameObjects;
 	private Comparator<GameObject> sorter;
 	
-	public World(boolean mimic3dRenderOrder) {
+	public World(GameState gameState, boolean mimic3dRenderOrder) {
+		this.gameState = gameState;
 		gameObjects = new ArrayList<GameObject>();
 		sorter = new Comparator<GameObject>() {
 			@Override
@@ -35,17 +38,21 @@ public class World {
 	
 	public void tick() {
 		for (GameObject gameObject : gameObjects) {
-			gameObject.tickComponents();
 			gameObject.tick();
+			gameObject.tickComponents();
 		}
 	}
 	
 	public void render(Graphics2D g) {
 		gameObjects.sort(sorter);
 		for (GameObject gameObject : gameObjects) {
-			gameObject.renderComponents(g);
 			gameObject.render(g);
+			gameObject.renderComponents(g);
 		}
+	}
+	
+	public GameState getGameState() {
+		return gameState;
 	}
 	
 	public List<GameObject> getGameObjects() {

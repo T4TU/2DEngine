@@ -10,32 +10,43 @@ import me.markkanen.tarmo.images.ImageContainer;
 public class Gameloop implements Runnable {
 	
 	private Game game;
+	private int tps, rps;
 	private Thread thread;
 	private BufferStrategy bs;
 	
-	public Gameloop(Game game) {
+	public Gameloop(Game game, int tps, int rps) {
 		this.game = game;
+		this.tps = tps;
+		this.rps = rps;
 	}
 	
 	public void run() {
 		
 		init();
 		
-		final int TICKS_PER_SECOND = 60;
+		final int TICKS_PER_SECOND = tps;
+		final int TICKS_PER_RENDER = rps;
 		final double TIME_PER_TICK = 1000000000 / TICKS_PER_SECOND;
-		double d = 0;
+		final double TIME_PER_RENDER = 1000000000 / TICKS_PER_RENDER;
+		double dt = 0;
+		double dr = 0;
 		long n;
 		long l = System.nanoTime();
 		
 		while (true) {
 			n = System.nanoTime();
-			d += (n - l) / TIME_PER_TICK;
+			dt += (n - l) / TIME_PER_TICK;
+			dr += (n - l) / TIME_PER_RENDER;
 			l = n;
 			
-			if (d >= 1) {
+			if (dt >= 1) {
 				tick();
+				dt--;
+			}
+			
+			if (dr >= 1) {
 				render();
-				d--;
+				dr--;
 			}
 		}
 	}

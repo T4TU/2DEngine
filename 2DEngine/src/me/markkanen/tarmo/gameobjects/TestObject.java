@@ -4,36 +4,36 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import me.markkanen.tarmo.components.MovableComponent;
-import me.markkanen.tarmo.main.Game;
-import me.markkanen.tarmo.misc.Vector;
+import me.markkanen.tarmo.components.CollideableComponent;
+import me.markkanen.tarmo.components.PhysicsComponent;
+import me.markkanen.tarmo.environment.World;
+import me.markkanen.tarmo.physics.CollisionBox;
+import me.markkanen.tarmo.physics.Vector;
 
 public class TestObject extends GameObject {
 	
-	public TestObject(Game game, float x, float y) {
-		super(game, x, y);
-		MovableComponent component = new MovableComponent(this, 1f, 0.1f, true);
-		addComponent(component);
+	public TestObject(World world, float x, float y) {
+		super(world, x, y);
+		CollideableComponent collideableComponent = new CollideableComponent(this, new CollisionBox(0, 0, 100, 100));
+		PhysicsComponent physicsComponent = new PhysicsComponent(this, 1, 0, new Vector(0, 2), collideableComponent);
+		addComponent(collideableComponent);
+		addComponent(physicsComponent);
+		physicsComponent.addForce(new Vector(8, 8));
 	}
 	
 	@Override
 	public void tick() {
 		
-		MovableComponent component = (MovableComponent) components.get(0);
+		PhysicsComponent component = (PhysicsComponent) components.get(1);
 		
-		if (y > 500) {
-			y = 500;
-			component.getVelocity().setY(0);
+		if (world.getGameState().getGame().getKeyManager().isPressed(KeyEvent.VK_D)) {
+			component.addForce(new Vector(2f, 0));
 		}
-		
-		if (game.getKeyManager().isPressed(KeyEvent.VK_D)) {
-			component.addForce(new Vector(1, 0));
+		if (world.getGameState().getGame().getKeyManager().isPressed(KeyEvent.VK_A)) {
+			component.addForce(new Vector(-2f, 0));
 		}
-		if (game.getKeyManager().isPressed(KeyEvent.VK_A)) {
-			component.addForce(new Vector(-1, 0));
-		}
-		if (game.getKeyManager().wasPressed(KeyEvent.VK_SPACE) && y == 500) {
-			component.addForce(new Vector(0, -40));
+		if (world.getGameState().getGame().getKeyManager().wasPressed(KeyEvent.VK_SPACE)) {
+			component.addForce(new Vector(0, -50f));
 		}
 	}
 	

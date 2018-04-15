@@ -5,17 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.markkanen.tarmo.components.Component;
-import me.markkanen.tarmo.main.Game;
+import me.markkanen.tarmo.environment.World;
 
 public abstract class GameObject {
 	
-	protected Game game;
+	protected World world;
 	protected String id;
 	protected float x, y, z;
 	protected List<Component> components;
 	
-	public GameObject(Game game, float x, float y) {
-		this.game = game;
+	public GameObject(World world, float x, float y) {
+		this.world = world;
 		id = null;
 		this.x = x;
 		this.y = y;
@@ -23,8 +23,8 @@ public abstract class GameObject {
 		components = new ArrayList<Component>();
 	}
 	
-	public GameObject(Game game, float x, float y, float z) {
-		this.game = game;
+	public GameObject(World world, float x, float y, float z) {
+		this.world = world;
 		id = null;
 		this.x = x;
 		this.y = y;
@@ -32,8 +32,8 @@ public abstract class GameObject {
 		components = new ArrayList<Component>();
 	}
 	
-	public GameObject(Game game, String id, float x, float y) {
-		this.game = game;
+	public GameObject(World world, String id, float x, float y) {
+		this.world = world;
 		this.id = id;
 		this.x = x;
 		this.y = y;
@@ -41,8 +41,8 @@ public abstract class GameObject {
 		components = new ArrayList<Component>();
 	}
 	
-	public GameObject(Game game, String id, float x, float y, float z) {
-		this.game = game;
+	public GameObject(World world, String id, float x, float y, float z) {
+		this.world = world;
 		this.id = id;
 		this.x = x;
 		this.y = y;
@@ -64,6 +64,10 @@ public abstract class GameObject {
 		for (Component component : components) {
 			component.render(g);
 		}
+	}
+	
+	public World getWorld() {
+		return world;
 	}
 	
 	public String getId() {

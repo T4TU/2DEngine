@@ -15,7 +15,7 @@ public class Game {
 	private GameStateManager gameStateManager;
 	private Gameloop gameloop;
 	
-	public Game(String title, int width, int height) {
+	public Game(String title, int width, int height, int tps, int rps) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
@@ -29,12 +29,12 @@ public class Game {
 		display.getCanvas().addMouseListener(mouseManager);
 		display.getCanvas().addMouseMotionListener(mouseManager);
 		gameStateManager = new GameStateManager();
-		gameloop = new Gameloop(this);
+		gameloop = new Gameloop(this, tps, rps);
 		gameloop.start();
 	}
 	
 	public static void main(String[] args) {
-		new Game("2DEngine", 1500, 1500 / 16 * 9);
+		new Game("2DEngine", 1500, 1500 / 16 * 9, 60, 60);
 	}
 	
 	public String getTitle() {

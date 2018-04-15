@@ -1,4 +1,4 @@
-package me.markkanen.tarmo.misc;
+package me.markkanen.tarmo.physics;
 
 public class Vector {
 	

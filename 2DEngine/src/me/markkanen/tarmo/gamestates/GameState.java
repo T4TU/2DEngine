@@ -18,6 +18,10 @@ public abstract class GameState {
 	
 	public abstract void render(Graphics2D g);
 	
+	public Game getGame() {
+		return game;
+	}
+	
 	public String getName() {
 		return name;
 	}
