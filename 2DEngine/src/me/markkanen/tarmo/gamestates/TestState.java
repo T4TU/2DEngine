@@ -14,7 +14,7 @@ public class TestState extends GameState {
 	public TestState(Game game, String name) {
 		super(game, name);
 		world = new World(this, false);
-		TestObject testObject = new TestObject(world, 200, 10);
+		TestObject testObject = new TestObject(world, 200, 0);
 		world.addGameObject(testObject);
 		Obstacle obstacle1 = new Obstacle(world, 0, 0, 1500, 0);
 		world.addGameObject(obstacle1);

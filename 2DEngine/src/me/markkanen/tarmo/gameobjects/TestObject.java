@@ -18,7 +18,7 @@ public class TestObject extends GameObject {
 		PhysicsComponent physicsComponent = new PhysicsComponent(this, 1, 0, new Vector(0, 2), collideableComponent);
 		addComponent(collideableComponent);
 		addComponent(physicsComponent);
-		physicsComponent.addForce(new Vector(8, 8));
+		physicsComponent.addForce(new Vector(0, 0));
 	}
 	
 	@Override

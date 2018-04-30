@@ -33,18 +33,8 @@ public class PhysicsComponent extends Component {
 	
 	@Override
 	public void tick() {
-		
-		if (gravity != null) {
-			addForce(Vector.multiply(gravity, mass));
-		}
-		
-		if (velocity.getLength() < 0.01f) {
-			velocity.multiply(0);
-		}
-		else {
-			addForce(Vector.multiply(velocity, -Math.min(drag, 1)));
-		}
-		
+		gravity();
+		drag();
 		if (collideableComponent != null) {
 			collideableComponent.calculateCollision(velocity);
 		}
@@ -56,6 +46,21 @@ public class PhysicsComponent extends Component {
 	
 	@Override
 	public void render(Graphics2D g) {
+	}
+	
+	private void gravity() {
+		if (gravity != null) {
+			addForce(Vector.multiply(gravity, mass));
+		}
+	}
+	
+	private void drag() {
+		if (velocity.getLength() < 0.01f) {
+			velocity.multiply(0);
+		}
+		else {
+			addForce(Vector.multiply(velocity, -Math.min(drag, 1)));
+		}
 	}
 	
 	public Vector getVelocity() {
